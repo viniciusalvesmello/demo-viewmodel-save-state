@@ -28,15 +28,12 @@ class SecondFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_second, container, false)
     }
-    
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         
         viewModel.mainData.observe(this, Observer {
-            if (it != null && it != getMainData()) {
-                etText1.setText(it.firstText)
-                etText2.setText(it.secondText)
-            }
+            if (it != null) setTextData(it)
         })
         
         mbReturnToFirstFragment.setOnClickListener {
@@ -45,10 +42,14 @@ class SecondFragment : Fragment() {
         }
         
     }
-    
+
+    private fun setTextData(mainData: MainData) {
+        etText1.setText(mainData.firstText)
+        etText2.setText(mainData.secondText)
+    }
+
     private fun getMainData() : MainData = MainData(
         firstText = etText1.text.toString(),
         secondText = etText2.text.toString()
     )
-    
 }

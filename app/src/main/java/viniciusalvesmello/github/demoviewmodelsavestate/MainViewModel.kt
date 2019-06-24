@@ -5,14 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 
-class MainViewModel(state: SavedStateHandle) : ViewModel() {
+class MainViewModel(private val state: SavedStateHandle) : ViewModel() {
 
-    private val _mainData: MutableLiveData<MainData> = state.getLiveData(SAVE_STATE_VIEW_MODEL_KEY)
-    val mainData: LiveData<MainData>
-        get() = _mainData
+    val mainData: LiveData<MainData> = state.getLiveData(SAVE_STATE_VIEW_MODEL_KEY)
     
     fun updateMainData(mainData: MainData) {
-        _mainData.value = mainData
+        state.set(SAVE_STATE_VIEW_MODEL_KEY, mainData)
     }
 
     companion object {
