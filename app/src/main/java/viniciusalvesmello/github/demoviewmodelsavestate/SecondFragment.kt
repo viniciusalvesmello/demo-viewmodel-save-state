@@ -39,8 +39,6 @@ class SecondFragment : Fragment() {
             }
         })
         
-        viewModel.getSavedMainData()
-        
         mbReturnToFirstFragment.setOnClickListener {
             viewModel.updateMainData(getMainData())
             this.findNavController().popBackStack()

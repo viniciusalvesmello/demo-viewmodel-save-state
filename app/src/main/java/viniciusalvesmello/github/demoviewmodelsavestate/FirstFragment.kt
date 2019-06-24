@@ -32,15 +32,20 @@ class FirstFragment : Fragment() {
     
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        
+
+        viewModel.mainData.value.let {
+            if (it != null && it != getMainData()) {
+                etText1.setText(it.firstText)
+                etText2.setText(it.secondText)
+            }
+        }
+
         viewModel.mainData.observe(this, Observer {
             if (it != null && it != getMainData()) {
                 etText1.setText(it.firstText)
                 etText2.setText(it.secondText)
             }
         })
-        
-        viewModel.getSavedMainData()
         
         mbGoToSecondFragment.setOnClickListener {
             viewModel.updateMainData(getMainData())
